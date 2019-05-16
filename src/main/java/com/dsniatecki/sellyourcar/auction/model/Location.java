@@ -1,12 +1,11 @@
-package com.dsniatecki.sellyourcar.auction;
+package com.dsniatecki.sellyourcar.auction.model;
 
-
-import com.sun.javafx.beans.IDProperty;
+import lombok.Builder;
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Data
+@Builder
 @Entity
 @Table(name="locations")
 class Location {

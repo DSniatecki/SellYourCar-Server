@@ -1,15 +1,20 @@
-package com.dsniatecki.sellyourcar.auction;
+package com.dsniatecki.sellyourcar.auction.model;
 
-
+import lombok.Builder;
 import lombok.Data;
-
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 @Data
+@Builder
 @Entity
 @Table(name="auctions")
-class Auction {
+@Where(clause = "is_deleted=false")
+@SQLDelete(sql="update auctions set is_deleted=true where id=?")
+public class Auction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,5 +51,11 @@ class Auction {
 
     @Column(name="creation_date")
     private LocalDateTime modificationDate;
+
+    private Long existDays;
+
+    public Long getExistDays(){
+        return MINUTES.between(creationDate, LocalDateTime.now());
+    }
 
 }
