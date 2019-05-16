@@ -52,9 +52,9 @@ public class Auction {
     @Column(name="creation_date")
     private LocalDateTime modificationDate;
 
-    private Long existDays;
+    private Long existsDays;
 
-    public Long getExistDays(){
+    public Long getExistsDays(){
         return MINUTES.between(creationDate, LocalDateTime.now());
     }
 

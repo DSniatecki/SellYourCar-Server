@@ -24,5 +24,4 @@ class Owner {
     @Column(name="email")
     private String email;
 
-
 }
