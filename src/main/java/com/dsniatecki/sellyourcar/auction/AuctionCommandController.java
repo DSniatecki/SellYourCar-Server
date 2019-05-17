@@ -20,7 +20,4 @@ class AuctionCommandController {
         auctionCommandService.addNew(auctionDTO);
     }
 
-
-
-
 }
