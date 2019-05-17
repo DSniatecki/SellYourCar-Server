@@ -1,10 +1,14 @@
 package com.dsniatecki.sellyourcar.auction.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Data
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name="cars")
@@ -33,8 +37,11 @@ public class Car {
     @Column(name="fuel_type")
     private String fuelType;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="cars_details_id")
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+    @JoinColumn(name="car_details_id")
     private CarDetails details;
+
+    public Car(){}
 
 }

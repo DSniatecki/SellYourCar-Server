@@ -1,7 +1,8 @@
 package com.dsniatecki.sellyourcar.auction;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.dsniatecki.sellyourcar.auction.model.Auction;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auctions")
@@ -11,6 +12,12 @@ class AuctionCommandController {
 
     AuctionCommandController(AuctionCommandService auctionCommandService){
         this.auctionCommandService = auctionCommandService;
+    }
+
+    @PostMapping("/")
+    @ResponseStatus(HttpStatus.CREATED)
+    void createAuction(@RequestBody Auction auction){
+
     }
 
 

@@ -1,17 +1,26 @@
 package com.dsniatecki.sellyourcar.auction;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.dsniatecki.sellyourcar.auction.dto.AuctionListItemQueryDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auctions")
 class AuctionQueryController {
 
-    private AuctionCommandService auctionCommandService;
+    private AuctionQueryService auctionQueryService;
 
-    AuctionQueryController(AuctionCommandService auctionCommandService){
-        this.auctionCommandService = auctionCommandService;
+    AuctionQueryController(AuctionQueryService auctionQueryService){
+        this.auctionQueryService = auctionQueryService;
     }
+
+    @GetMapping("/all")
+    public List<AuctionListItemQueryDTO> getAll(){
+        return auctionQueryService.getAll();
+    }
+
 
 }

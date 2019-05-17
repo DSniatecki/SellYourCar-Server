@@ -1,14 +1,17 @@
 package com.dsniatecki.sellyourcar.auction.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Data
-@Builder
+@AllArgsConstructor
 @Entity
 @Table(name="cars_details")
-class CarDetails {
+public class CarDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +19,11 @@ class CarDetails {
     private Long id;
 
     @Column(name="additional_features")
-    private String additionalFeatures;
+    private String features;
 
-    @Column(name="description")
+    @Column(name="long_description")
     private String description;
+
+    public CarDetails(){}
 
 }

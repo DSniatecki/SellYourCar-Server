@@ -1,14 +1,17 @@
 package com.dsniatecki.sellyourcar.auction.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Data
-@Builder
+@AllArgsConstructor
 @Entity
 @Table(name="locations")
-class Location {
+public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +27,6 @@ class Location {
     @Column(name="city")
     private String city;
 
+    public Location(){
+    }
 }

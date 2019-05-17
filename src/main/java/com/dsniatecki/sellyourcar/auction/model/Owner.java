@@ -1,13 +1,17 @@
 package com.dsniatecki.sellyourcar.auction.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Data
-@Builder
+@AllArgsConstructor
 @Entity
 @Table(name="owners")
+public
 class Owner {
 
     @Id
@@ -24,4 +28,6 @@ class Owner {
     @Column(name="email")
     private String email;
 
+    public Owner(){
+    }
 }
