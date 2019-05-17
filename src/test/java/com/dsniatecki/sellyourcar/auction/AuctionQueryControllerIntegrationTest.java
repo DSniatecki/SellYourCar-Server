@@ -59,4 +59,24 @@ class AuctionQueryControllerIntegrationTest {
                 .andExpect(jsonPath("$[0].car.model").value(auction.getCar().getModel()))
                 .andExpect(jsonPath("$[0].car.productionYear").value(auction.getCar().getProductionYear()));
     }
+
+    @Test
+    @DisplayName("getPage() - success")
+    void shouldReturnAuctionPage() throws Exception {
+        Auction auction = TestAuctionGenerator.generateAuction();
+
+        mockMvc.perform(get("/api/auctions/"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.empty").value(false))
+                .andExpect(jsonPath("$.numberOfElements").value(1))
+                .andExpect(jsonPath("$.content", hasSize(1)))
+                .andExpect(jsonPath("$.content.[0].id").value(auction.getId()))
+                .andExpect(jsonPath("$.content.[0].title").value(auction.getTitle()))
+                .andExpect(jsonPath("$.content.[0].price").value(auction.getPrice()))
+                .andExpect(jsonPath("$.content.[0].isPremium").value(auction.getIsPremium()))
+                .andExpect(jsonPath("$.content.[0].car.brand").value(auction.getCar().getBrand()))
+                .andExpect(jsonPath("$.content.[0].car.model").value(auction.getCar().getModel()))
+                .andExpect(jsonPath("$.content.[0].car.productionYear").value(auction.getCar().getProductionYear()));
+    }
 }

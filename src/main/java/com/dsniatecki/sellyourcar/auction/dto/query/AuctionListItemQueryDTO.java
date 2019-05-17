@@ -1,4 +1,4 @@
-package com.dsniatecki.sellyourcar.auction.dto;
+package com.dsniatecki.sellyourcar.auction.dto.query;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,7 +13,6 @@ public class AuctionListItemQueryDTO {
     private final Boolean isPremium;
     private final CarBasicQueryDTO car;
 
-    @JsonCreator(mode=JsonCreator.Mode.PROPERTIES)
     public AuctionListItemQueryDTO(Long id, String title, Integer price, Boolean isPremium, CarBasicQueryDTO car) {
         this.id = id;
         this.title = title;
@@ -21,4 +20,5 @@ public class AuctionListItemQueryDTO {
         this.isPremium = isPremium;
         this.car = car;
     }
+
 }

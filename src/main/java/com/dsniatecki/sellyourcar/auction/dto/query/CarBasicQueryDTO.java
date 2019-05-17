@@ -1,10 +1,11 @@
-package com.dsniatecki.sellyourcar.auction.dto;
+package com.dsniatecki.sellyourcar.auction.dto.query;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
 @Getter
 public class CarBasicQueryDTO {
+
     private final String brand;
     private final String model;
     private final Integer productionYear;
@@ -15,4 +16,5 @@ public class CarBasicQueryDTO {
         this.model = model;
         this.productionYear = productionYear;
     }
+
 }

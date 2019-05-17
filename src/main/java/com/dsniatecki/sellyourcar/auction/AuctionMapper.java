@@ -1,7 +1,7 @@
 package com.dsniatecki.sellyourcar.auction;
 
-import com.dsniatecki.sellyourcar.auction.dto.AuctionListItemQueryDTO;
-import com.dsniatecki.sellyourcar.auction.dto.CarBasicQueryDTO;
+import com.dsniatecki.sellyourcar.auction.dto.query.AuctionListItemQueryDTO;
+import com.dsniatecki.sellyourcar.auction.dto.query.CarBasicQueryDTO;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 
 class AuctionMapper {
@@ -20,7 +20,6 @@ class AuctionMapper {
                         auction.getCar().getProductionYear()
                 )
         );
-
     }
 
 }
