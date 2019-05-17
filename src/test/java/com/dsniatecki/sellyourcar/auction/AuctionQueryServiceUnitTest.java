@@ -1,8 +1,11 @@
 package com.dsniatecki.sellyourcar.auction;
 
+import com.dsniatecki.sellyourcar.auction.dto.query.AuctionCompleteQueryDTO;
 import com.dsniatecki.sellyourcar.auction.dto.query.AuctionListItemQueryDTO;
+import com.dsniatecki.sellyourcar.auction.exceptions.AuctionNotFoundException;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.auction.tool.TestAuctionGenerator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,10 +18,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static junit.framework.TestCase.assertSame;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(SpringExtension.class)
@@ -36,8 +40,8 @@ class AuctionQueryServiceUnitTest {
     @DisplayName("getAll() - SUCCESS")
     void shouldGetAllAuctions() {
         List<Auction> auctionList = TestAuctionGenerator.generateAuctionList();
-
         doReturn(auctionList).when(auctionRepository).findAll();
+
         List<AuctionListItemQueryDTO> returnedAuctions = auctionQueryService.getAll();
 
         assertAll(
@@ -55,8 +59,8 @@ class AuctionQueryServiceUnitTest {
     @DisplayName("getPage() - SUCCESS")
     void shouldGetPage() {
         Page<Auction> auctionPage = new PageImpl<>(TestAuctionGenerator.generateAuctionList());
-
         doReturn(auctionPage).when(auctionRepository).findAll(Pageable.unpaged());
+
         Page<AuctionListItemQueryDTO> returnedAuctionPage = auctionQueryService.getPage(Pageable.unpaged());
 
         assertAll(
@@ -76,6 +80,40 @@ class AuctionQueryServiceUnitTest {
                 ()-> assertEquals(returnedAuctionPage.getContent().get(1).getCar().getModel(),
                         auctionPage.getContent().get(1).getCar().getModel())
         );
+    }
+
+    @Test
+    @DisplayName("getById() - SUCCESS")
+    void shouldGetById() {
+        Auction auction = TestAuctionGenerator.generateAuction();
+        doReturn(Optional.ofNullable(auction)).when(auctionRepository).findById(anyLong());
+
+        AuctionCompleteQueryDTO returnedAuctionDTO = auctionQueryService.getById("1");
+
+        assertAll(
+                ()-> assertEquals(returnedAuctionDTO.getId(), auction.getId()),
+                ()-> assertEquals(returnedAuctionDTO.getTitle(), auction.getTitle()),
+                ()-> assertEquals(returnedAuctionDTO.getPrice(), auction.getPrice()),
+                ()-> assertEquals(returnedAuctionDTO.getCar().getBrand(), auction.getCar().getBrand()),
+                ()-> assertEquals(returnedAuctionDTO.getCar().getModel(), auction.getCar().getModel()),
+                ()-> assertEquals(returnedAuctionDTO.getOwner().getUsername(), auction.getOwner().getUsername()),
+                ()-> assertEquals(returnedAuctionDTO.getLocation().getCountry(), auction.getLocation().getCountry()),
+                ()-> assertEquals(returnedAuctionDTO.getLocation().getCity(), auction.getLocation().getCity()),
+                ()-> assertEquals(returnedAuctionDTO.getIsPremium(), auction.getIsPremium()),
+                ()-> assertEquals(returnedAuctionDTO.getDaysExists(), auction.getDaysExists())
+        );
+    }
+
+    @Test
+    @DisplayName("getById() - FAILED: AuctionNotFoundException")
+    void shouldNotGetById(){
+        doReturn(Optional.empty()).when(auctionRepository).findById(anyLong());
+
+        AuctionNotFoundException exception = assertThrows(
+                AuctionNotFoundException.class, ()-> auctionQueryService.getById("1")
+        );
+
+        Assertions.assertEquals(exception.getMessage(), "Auction[id:1] was not found.");
     }
 
 }

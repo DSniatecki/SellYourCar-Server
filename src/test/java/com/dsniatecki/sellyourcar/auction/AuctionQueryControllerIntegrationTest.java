@@ -2,10 +2,7 @@ package com.dsniatecki.sellyourcar.auction;
 
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.auction.tool.TestAuctionGenerator;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("AuctionQueryController - Integration Tests")
-class AuctionQueryControllerIntegrationTest {
+class AuctionQueryControllerIntegrationTest{
 
     @Autowired
     private AuctionRepository auctionRepository;
@@ -79,4 +76,39 @@ class AuctionQueryControllerIntegrationTest {
                 .andExpect(jsonPath("$.content.[0].car.model").value(auction.getCar().getModel()))
                 .andExpect(jsonPath("$.content.[0].car.productionYear").value(auction.getCar().getProductionYear()));
     }
+
+    @Test
+    @DisplayName("getById() - success")
+    void shouldReturnAuctionCompleteQueryDTO() throws Exception {
+        Auction auction = TestAuctionGenerator.generateAuction();
+
+        mockMvc.perform(get("/api/auctions/{id}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.title").value(auction.getTitle()))
+                .andExpect(jsonPath("$.price").value(auction.getPrice()))
+                .andExpect(jsonPath("$.car.brand").value(auction.getCar().getBrand()))
+                .andExpect(jsonPath("$.car.model").value(auction.getCar().getModel()))
+                .andExpect(jsonPath("$.car.enginePower").value(auction.getCar().getEnginePower()))
+                .andExpect(jsonPath("$.owner.username").value(auction.getOwner().getUsername()))
+                .andExpect(jsonPath("$.owner.telephoneNumber").value(auction.getOwner().getTelephoneNumber()))
+                .andExpect(jsonPath("$.owner.email").value(auction.getOwner().getEmail()))
+                .andExpect(jsonPath("$.location.country").value(auction.getLocation().getCountry()))
+                .andExpect(jsonPath("$.location.province").value(auction.getLocation().getProvince()))
+                .andExpect(jsonPath("$.location.city").value(auction.getLocation().getCity()))
+                .andExpect(jsonPath("$.isPremium").value(auction.getIsPremium()))
+                .andExpect(jsonPath("$.daysExists").value(0));
+    }
+
+    @Test
+    @DisplayName("getById() - FAILED - AuctionNotFoundException")
+    void shouldReturnAuctionNotFoundExceptionResponse() throws Exception {
+        String id="30";
+        mockMvc.perform(get("/api/auctions/{id}", id))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.message").value("Auction[id:"+id+"] was not found."))
+                .andExpect(jsonPath("$.details").value("uri=/api/auctions/"+id));
+    }
+
 }

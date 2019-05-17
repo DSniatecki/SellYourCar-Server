@@ -1,14 +1,14 @@
 package com.dsniatecki.sellyourcar.auction;
 
 import com.dsniatecki.sellyourcar.auction.dto.query.AuctionListItemQueryDTO;
+import com.dsniatecki.sellyourcar.auction.dto.query.AuctionCompleteQueryDTO;
+import com.dsniatecki.sellyourcar.auction.exceptions.AuctionNotFoundException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,12 +22,19 @@ class AuctionQueryService {
 
     List<AuctionListItemQueryDTO> getAll() {
         return auctionRepository.findAll().stream()
-                .map(AuctionMapper::fromAuction)
+                .map(AuctionMapper::mapToListItemQueryDTO)
                 .collect(Collectors.toList());
     }
 
     Page<AuctionListItemQueryDTO> getPage(Pageable pageRequest){
         return auctionRepository.findAll(pageRequest)
-                .map(AuctionMapper::fromAuction);
+                .map(AuctionMapper::mapToListItemQueryDTO);
+    }
+
+    @Transactional(readOnly = true)
+    public AuctionCompleteQueryDTO getById(String id) {
+        return auctionRepository.findById(Long.valueOf(id))
+                .map(AuctionMapper::mapToCompleteQueryDTO)
+                .orElseThrow( () -> new AuctionNotFoundException("Auction[id:" + id + "] was not found.") );
     }
 }

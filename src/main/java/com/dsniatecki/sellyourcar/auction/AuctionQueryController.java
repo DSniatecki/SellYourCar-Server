@@ -2,6 +2,7 @@ package com.dsniatecki.sellyourcar.auction;
 
 
 import com.dsniatecki.sellyourcar.auction.dto.query.AuctionListItemQueryDTO;
+import com.dsniatecki.sellyourcar.auction.dto.query.AuctionCompleteQueryDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,6 +42,12 @@ class AuctionQueryController {
                         order.orElse("creationDate"))
                 );
     }
+
+    @GetMapping("/{id}")
+    public AuctionCompleteQueryDTO getById(@PathVariable String id){
+        return auctionQueryService.getById(id);
+    }
+
 
 
 }

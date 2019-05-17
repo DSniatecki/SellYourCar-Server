@@ -8,7 +8,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 @Data
@@ -58,9 +62,6 @@ public class Auction {
     @Column(name="modification_date")
     private LocalDateTime modificationDate;
 
-    @Transient
-    private Long existsDays;
-
     public Auction() {
 
     }
@@ -78,8 +79,10 @@ public class Auction {
         modificationDate = LocalDateTime.now();
     }
 
-    public Long getExistsDays(){
-        return MINUTES.between(creationDate, LocalDateTime.now());
+    public Integer getDaysExists(){
+        if(creationDate!=null)
+            return Period.between(LocalDate.now(), creationDate.toLocalDate()).getDays();
+        else return -1;
     }
 
 }

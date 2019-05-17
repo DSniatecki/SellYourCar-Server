@@ -1,7 +1,6 @@
 package com.dsniatecki.sellyourcar.auction.dto.query;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
 @Getter
@@ -20,5 +19,4 @@ public class AuctionListItemQueryDTO {
         this.isPremium = isPremium;
         this.car = car;
     }
-
 }
