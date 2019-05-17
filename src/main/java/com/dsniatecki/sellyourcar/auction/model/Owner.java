@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name="owners")
-public
-class Owner {
+public class Owner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,9 @@ class Owner {
     @Column(name="email")
     private String email;
 
-    public Owner(){
+    public Owner(String username, String telephoneNumber, String email) {
+        this.username = username;
+        this.telephoneNumber = telephoneNumber;
+        this.email = email;
     }
 }

@@ -19,4 +19,5 @@ public class AuctionListItemQueryDTO {
         this.isPremium = isPremium;
         this.car = car;
     }
+
 }

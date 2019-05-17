@@ -9,9 +9,9 @@ import com.dsniatecki.sellyourcar.auction.dto.query.AuctionCompleteQueryDTO;
 import com.dsniatecki.sellyourcar.auction.dto.query.CarBasicQueryDTO;
 import com.dsniatecki.sellyourcar.auction.model.*;
 
-class AuctionMapper {
+class AuctionQueryMapper {
 
-    private AuctionMapper(){}
+    private AuctionQueryMapper(){}
 
     static AuctionListItemQueryDTO mapToListItemQueryDTO(Auction auction){
         return new AuctionListItemQueryDTO(
@@ -19,11 +19,7 @@ class AuctionMapper {
                 auction.getTitle(),
                 auction.getPrice(),
                 auction.getIsPremium(),
-                new CarBasicQueryDTO(
-                        auction.getCar().getBrand(),
-                        auction.getCar().getModel(),
-                        auction.getCar().getProductionYear()
-                )
+                mapTOCarBasicQueryDTO(auction.getCar())
         );
     }
 
@@ -41,13 +37,20 @@ class AuctionMapper {
         );
     }
 
+    private static CarBasicQueryDTO mapTOCarBasicQueryDTO(Car car){
+        return new CarBasicQueryDTO(
+                car.getBrand(),
+                car.getModel(),
+                car.getProductionYear()
+        );
+    }
+
     private static CarDetailsDTO mapToCarDetailsDTO(CarDetails carDetails){
         return new CarDetailsDTO(
                 carDetails.getFeatures(),
                 carDetails.getDescription()
         );
     }
-
 
     private static CarDTO mapToCarDTO(Car car){
         return new CarDTO(

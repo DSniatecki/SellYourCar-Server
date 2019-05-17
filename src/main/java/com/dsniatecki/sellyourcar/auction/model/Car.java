@@ -1,13 +1,11 @@
 package com.dsniatecki.sellyourcar.auction.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -41,7 +39,5 @@ public class Car {
             cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
     @JoinColumn(name="car_details_id")
     private CarDetails details;
-
-    public Car(){}
 
 }

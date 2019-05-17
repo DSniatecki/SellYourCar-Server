@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name="locations")
@@ -27,6 +28,9 @@ public class Location {
     @Column(name="city")
     private String city;
 
-    public Location(){
+    public Location(String country, String province, String city) {
+        this.country = country;
+        this.province = province;
+        this.city = city;
     }
 }

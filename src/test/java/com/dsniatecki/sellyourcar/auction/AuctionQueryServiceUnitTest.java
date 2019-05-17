@@ -4,7 +4,7 @@ import com.dsniatecki.sellyourcar.auction.dto.query.AuctionCompleteQueryDTO;
 import com.dsniatecki.sellyourcar.auction.dto.query.AuctionListItemQueryDTO;
 import com.dsniatecki.sellyourcar.auction.exceptions.AuctionNotFoundException;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
-import com.dsniatecki.sellyourcar.auction.tool.TestAuctionGenerator;
+import com.dsniatecki.sellyourcar.auction.tool.AuctionTestGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class AuctionQueryServiceUnitTest {
     @Test
     @DisplayName("getAll() - SUCCESS")
     void shouldGetAllAuctions() {
-        List<Auction> auctionList = TestAuctionGenerator.generateAuctionList();
+        List<Auction> auctionList = AuctionTestGenerator.generateAuctionList();
         doReturn(auctionList).when(auctionRepository).findAll();
 
         List<AuctionListItemQueryDTO> returnedAuctions = auctionQueryService.getAll();
@@ -58,7 +58,7 @@ class AuctionQueryServiceUnitTest {
     @Test
     @DisplayName("getPage() - SUCCESS")
     void shouldGetPage() {
-        Page<Auction> auctionPage = new PageImpl<>(TestAuctionGenerator.generateAuctionList());
+        Page<Auction> auctionPage = new PageImpl<>(AuctionTestGenerator.generateAuctionList());
         doReturn(auctionPage).when(auctionRepository).findAll(Pageable.unpaged());
 
         Page<AuctionListItemQueryDTO> returnedAuctionPage = auctionQueryService.getPage(Pageable.unpaged());
@@ -85,7 +85,7 @@ class AuctionQueryServiceUnitTest {
     @Test
     @DisplayName("getById() - SUCCESS")
     void shouldGetById() {
-        Auction auction = TestAuctionGenerator.generateAuction();
+        Auction auction = AuctionTestGenerator.generateAuction();
         doReturn(Optional.ofNullable(auction)).when(auctionRepository).findById(anyLong());
 
         AuctionCompleteQueryDTO returnedAuctionDTO = auctionQueryService.getById("1");

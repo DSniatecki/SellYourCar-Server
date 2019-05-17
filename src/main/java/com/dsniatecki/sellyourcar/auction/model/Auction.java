@@ -63,7 +63,6 @@ public class Auction {
     private LocalDateTime modificationDate;
 
     public Auction() {
-
     }
 
     @PrePersist
@@ -85,4 +84,8 @@ public class Auction {
         else return -1;
     }
 
+    public void setCreationState(){
+        isDeleted = false;
+        isPremium = false;
+    }
 }

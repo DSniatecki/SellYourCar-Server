@@ -1,14 +1,16 @@
 package com.dsniatecki.sellyourcar.auction;
 
 import com.dsniatecki.sellyourcar.auction.model.Auction;
-import com.dsniatecki.sellyourcar.auction.tool.TestAuctionGenerator;
-import org.junit.jupiter.api.*;
+import com.dsniatecki.sellyourcar.auction.tool.AuctionTestGenerator;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -17,9 +19,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(
+        properties = {"spring.config.name=myapp-test2-h2","myapp.trx.datasource.url=jdbc:h2:mem:trxServiceStatus"})
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("AuctionQueryController - Integration Tests")
@@ -36,13 +38,13 @@ class AuctionQueryControllerIntegrationTest{
 
     @BeforeAll
     void prepareDatabaseForTests(){
-        auctionRepository.save(TestAuctionGenerator.generateAuction());
+        auctionRepository.save(AuctionTestGenerator.generateAuction());
     }
 
     @Test
-    @DisplayName("getAll() - success")
+    @DisplayName("getAll() - SUCCESS")
     void shouldReturnAllAuctions() throws Exception {
-        Auction auction = TestAuctionGenerator.generateAuction();
+        Auction auction = AuctionTestGenerator.generateAuction();
 
         mockMvc.perform(get("/api/auctions/all"))
                 .andExpect(status().isOk())
@@ -58,9 +60,9 @@ class AuctionQueryControllerIntegrationTest{
     }
 
     @Test
-    @DisplayName("getPage() - success")
+    @DisplayName("getPage() - SUCCESS")
     void shouldReturnAuctionPage() throws Exception {
-        Auction auction = TestAuctionGenerator.generateAuction();
+        Auction auction = AuctionTestGenerator.generateAuction();
 
         mockMvc.perform(get("/api/auctions/"))
                 .andExpect(status().isOk())
@@ -78,9 +80,9 @@ class AuctionQueryControllerIntegrationTest{
     }
 
     @Test
-    @DisplayName("getById() - success")
+    @DisplayName("getById() - SUCCESS")
     void shouldReturnAuctionCompleteQueryDTO() throws Exception {
-        Auction auction = TestAuctionGenerator.generateAuction();
+        Auction auction = AuctionTestGenerator.generateAuction();
 
         mockMvc.perform(get("/api/auctions/{id}", 1L))
                 .andExpect(status().isOk())
@@ -101,7 +103,7 @@ class AuctionQueryControllerIntegrationTest{
     }
 
     @Test
-    @DisplayName("getById() - FAILED - AuctionNotFoundException")
+    @DisplayName("getById() - AuctionNotFoundException")
     void shouldReturnAuctionNotFoundExceptionResponse() throws Exception {
         String id="30";
         mockMvc.perform(get("/api/auctions/{id}", id))

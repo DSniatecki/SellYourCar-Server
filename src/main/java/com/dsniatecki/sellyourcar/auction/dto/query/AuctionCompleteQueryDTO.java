@@ -28,4 +28,5 @@ public class AuctionCompleteQueryDTO {
         this.isPremium = isPremium;
         this.daysExists = daysExists;
     }
+
 }

@@ -1,6 +1,6 @@
 package com.dsniatecki.sellyourcar.auction;
 
-import com.dsniatecki.sellyourcar.auction.model.Auction;
+import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreateCommandDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +16,11 @@ class AuctionCommandController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    void createAuction(@RequestBody Auction auction){
-
+    void createNewAuction(@RequestBody AuctionCreateCommandDTO auctionDTO){
+        auctionCommandService.addNew(auctionDTO);
     }
+
+
 
 
 }

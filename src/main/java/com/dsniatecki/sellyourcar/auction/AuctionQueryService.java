@@ -22,19 +22,20 @@ class AuctionQueryService {
 
     List<AuctionListItemQueryDTO> getAll() {
         return auctionRepository.findAll().stream()
-                .map(AuctionMapper::mapToListItemQueryDTO)
+                .map(AuctionQueryMapper::mapToListItemQueryDTO)
                 .collect(Collectors.toList());
     }
 
     Page<AuctionListItemQueryDTO> getPage(Pageable pageRequest){
         return auctionRepository.findAll(pageRequest)
-                .map(AuctionMapper::mapToListItemQueryDTO);
+                .map(AuctionQueryMapper::mapToListItemQueryDTO);
     }
 
     @Transactional(readOnly = true)
     public AuctionCompleteQueryDTO getById(String id) {
         return auctionRepository.findById(Long.valueOf(id))
-                .map(AuctionMapper::mapToCompleteQueryDTO)
+                .map(AuctionQueryMapper::mapToCompleteQueryDTO)
                 .orElseThrow( () -> new AuctionNotFoundException("Auction[id:" + id + "] was not found.") );
     }
+
 }

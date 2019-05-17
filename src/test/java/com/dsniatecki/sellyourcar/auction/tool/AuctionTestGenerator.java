@@ -1,13 +1,18 @@
 package com.dsniatecki.sellyourcar.auction.tool;
 
+import com.dsniatecki.sellyourcar.auction.dto.CarDTO;
+import com.dsniatecki.sellyourcar.auction.dto.CarDetailsDTO;
+import com.dsniatecki.sellyourcar.auction.dto.LocationDTO;
+import com.dsniatecki.sellyourcar.auction.dto.OwnerDTO;
+import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreateCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.*;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class TestAuctionGenerator {
+public class AuctionTestGenerator {
 
-    private TestAuctionGenerator(){}
+    private AuctionTestGenerator(){}
 
     public static Auction generateAuction(){
         return Auction.builder()
@@ -71,5 +76,22 @@ public class TestAuctionGenerator {
         );
     }
 
+    public static AuctionCreateCommandDTO generateAuctionCreateCommandDTO(){
+        return new AuctionCreateCommandDTO(
+                "Test Title",
+                100_1000,
+                new CarDTO(
+                        "Test Brand",
+                        "Test Model",
+                        2000,
+                        100_000,
+                        100,
+                        "Test fuel",
+                        new CarDetailsDTO("Test Features", "Test Description")
+                        ),
+                new OwnerDTO("Test Username", "Test Telephone", "Test Email"),
+                new LocationDTO("Test Country", "Test Province", "Test City")
+        );
+    }
 
 }

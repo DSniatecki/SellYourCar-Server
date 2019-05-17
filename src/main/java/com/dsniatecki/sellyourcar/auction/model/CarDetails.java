@@ -1,13 +1,11 @@
 package com.dsniatecki.sellyourcar.auction.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name="cars_details")
@@ -24,6 +22,8 @@ public class CarDetails {
     @Column(name="long_description")
     private String description;
 
-    public CarDetails(){}
-
+    public CarDetails(String features, String description) {
+        this.features = features;
+        this.description = description;
+    }
 }

@@ -2,6 +2,7 @@ package com.dsniatecki.sellyourcar.auction.dto;
 
 import com.dsniatecki.sellyourcar.auction.model.CarDetails;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
@@ -16,8 +17,14 @@ public class CarDTO {
     private final CarDetailsDTO carDetails;
 
     @JsonCreator(mode=JsonCreator.Mode.PROPERTIES)
-    public CarDTO(String brand, String model, Integer productionYear, Integer mileage,
-                  Integer enginePower, String fuelType, CarDetailsDTO carDetails) {
+    public CarDTO(@JsonProperty("brand")String brand,
+                  @JsonProperty("model") String model,
+                  @JsonProperty("productionYear") Integer productionYear,
+                  @JsonProperty("mileage") Integer mileage,
+                  @JsonProperty("enginePower") Integer enginePower,
+                  @JsonProperty("fuelType") String fuelType,
+                  @JsonProperty("carDetails") CarDetailsDTO carDetails) {
+
         this.brand = brand;
         this.model = model;
         this.productionYear = productionYear;
@@ -26,4 +33,5 @@ public class CarDTO {
         this.fuelType = fuelType;
         this.carDetails = carDetails;
     }
+
 }
