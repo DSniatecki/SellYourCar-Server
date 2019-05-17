@@ -33,4 +33,8 @@ class Car {
     @Column(name="fuel_type")
     private String fuelType;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="cars_details_id")
+    private CarDetails details;
+
 }

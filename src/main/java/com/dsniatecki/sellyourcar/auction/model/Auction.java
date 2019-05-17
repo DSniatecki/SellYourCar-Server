@@ -24,6 +24,9 @@ public class Auction {
     @Column(name="title")
     private String title;
 
+    @Column(name="price")
+    private Integer price;
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="car_id")
     private Car car;
@@ -35,10 +38,6 @@ public class Auction {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="owner_id")
     private Owner owner;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="details_id")
-    private Details details;
 
     @Column(name="is_premium")
     private Boolean isPremium;
