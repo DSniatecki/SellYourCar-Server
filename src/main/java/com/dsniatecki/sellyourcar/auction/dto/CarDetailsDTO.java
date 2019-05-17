@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class CarDetailsDTO {
+public final class CarDetailsDTO {
 
     private final String features;
     private final String description;

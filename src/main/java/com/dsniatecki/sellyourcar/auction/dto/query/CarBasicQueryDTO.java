@@ -1,18 +1,14 @@
 package com.dsniatecki.sellyourcar.auction.dto.query;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-public class CarBasicQueryDTO {
+@AllArgsConstructor
+public final class CarBasicQueryDTO {
 
     private final String brand;
     private final String model;
     private final Integer productionYear;
-
-    public CarBasicQueryDTO(String brand, String model, Integer productionYear) {
-        this.brand = brand;
-        this.model = model;
-        this.productionYear = productionYear;
-    }
 
 }

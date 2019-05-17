@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class OwnerDTO {
+public final class OwnerDTO {
 
     private final String username;
     private final String telephoneNumber;

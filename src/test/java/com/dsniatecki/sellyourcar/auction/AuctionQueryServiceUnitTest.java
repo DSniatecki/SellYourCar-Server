@@ -2,9 +2,9 @@ package com.dsniatecki.sellyourcar.auction;
 
 import com.dsniatecki.sellyourcar.auction.dto.query.AuctionCompleteQueryDTO;
 import com.dsniatecki.sellyourcar.auction.dto.query.AuctionListItemQueryDTO;
-import com.dsniatecki.sellyourcar.auction.exceptions.AuctionNotFoundException;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.auction.tool.AuctionTestGenerator;
+import com.dsniatecki.sellyourcar.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,16 +15,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.Optional;
 
-import static junit.framework.TestCase.assertSame;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doReturn;
 
+@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @DisplayName("AuctionQueryService - Unit Tests")
@@ -105,12 +106,12 @@ class AuctionQueryServiceUnitTest {
     }
 
     @Test
-    @DisplayName("getById() - FAILED: AuctionNotFoundException")
+    @DisplayName("getById() - FAILED: ResourceNotFoundException")
     void shouldNotGetById(){
         doReturn(Optional.empty()).when(auctionRepository).findById(anyLong());
 
-        AuctionNotFoundException exception = assertThrows(
-                AuctionNotFoundException.class, ()-> auctionQueryService.getById("1")
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class, ()-> auctionQueryService.getById("1")
         );
 
         Assertions.assertEquals(exception.getMessage(), "Auction[id:1] was not found.");

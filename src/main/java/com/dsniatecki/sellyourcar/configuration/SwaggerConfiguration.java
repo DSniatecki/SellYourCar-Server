@@ -46,8 +46,9 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
         return new ApiInfo(
                 "Sell Your Car",
                 "RESTful web service created with Spring Boot designed to manage car auctions.",
-                "v.1", "",
+                "v0.1", "",
                 contact, "", "",
                 new ArrayList<>());
     }
+
 }

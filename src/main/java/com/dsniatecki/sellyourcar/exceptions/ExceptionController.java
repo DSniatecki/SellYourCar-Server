@@ -1,7 +1,6 @@
-package com.dsniatecki.sellyourcar.auction.exceptions;
+package com.dsniatecki.sellyourcar.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,10 +15,10 @@ import java.time.LocalDateTime;
 @RestController
 class ExceptionController {
 
-    @ExceptionHandler({AuctionNotFoundException.class})
+    @ExceptionHandler({ResourceNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionResponse handleAuctionNotFoundException(
-            AuctionNotFoundException exception, WebRequest webRequest){
+            ResourceNotFoundException exception, WebRequest webRequest){
         return new ExceptionResponse(LocalDateTime.now(),  exception.getMessage(), webRequest.getDescription(false));
     }
 
@@ -29,6 +28,5 @@ class ExceptionController {
             Exception exception, WebRequest webRequest){
         return new ExceptionResponse(LocalDateTime.now(), exception.getMessage(), webRequest.getDescription(false));
     }
-
 
 }

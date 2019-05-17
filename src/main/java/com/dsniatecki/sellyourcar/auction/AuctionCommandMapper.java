@@ -31,7 +31,6 @@ class AuctionCommandMapper {
                 .fuelType(carDTO.getFuelType())
                 .details(mapToCarDetails(carDTO.getCarDetails()))
                 .build();
-
     }
 
     private static CarDetails mapToCarDetails(CarDetailsDTO carDetailsDTO){

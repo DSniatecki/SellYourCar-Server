@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class AuctionCreateCommandDTO {
+public final class AuctionCreateCommandDTO {
 
     private final String title;
     private final Integer price;

@@ -103,7 +103,7 @@ class AuctionQueryControllerIntegrationTest{
     }
 
     @Test
-    @DisplayName("getById() - AuctionNotFoundException")
+    @DisplayName("getById() - ResourceNotFoundException")
     void shouldReturnAuctionNotFoundExceptionResponse() throws Exception {
         String id="30";
         mockMvc.perform(get("/api/auctions/{id}", id))

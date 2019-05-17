@@ -44,7 +44,6 @@ public class AuctionTestGenerator {
                 .isPremium(false)
                 .isDeleted(false)
                 .build();
-
     }
 
     public static List<Auction> generateAuctionList(){

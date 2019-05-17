@@ -1,12 +1,11 @@
 package com.dsniatecki.sellyourcar.auction.dto;
 
-import com.dsniatecki.sellyourcar.auction.model.CarDetails;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class CarDTO {
+public final class CarDTO {
 
     private final String brand;
     private final String model;

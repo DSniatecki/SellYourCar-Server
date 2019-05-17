@@ -48,6 +48,4 @@ class AuctionQueryController {
         return auctionQueryService.getById(id);
     }
 
-
-
 }
