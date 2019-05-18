@@ -22,6 +22,10 @@ manage and browse car auctions. Service support both SQL and NotSQL databases.
  ### - Documentation : 
      - Swagger2
 
+## Database diagram :
+  
+    ![](SQL/Database-Diagram-Screenshot.jpg)
+
  ## Launching instruction :
 
   1.  Download 
@@ -38,4 +42,3 @@ manage and browse car auctions. Service support both SQL and NotSQL databases.
   9.  Run Client ( e.g Postman ) 
   10. Enjoy the management of car auctions :)
   
-  ## Database diagram :
