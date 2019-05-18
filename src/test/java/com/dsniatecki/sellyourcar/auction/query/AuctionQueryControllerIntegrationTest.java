@@ -1,5 +1,6 @@
-package com.dsniatecki.sellyourcar.auction;
+package com.dsniatecki.sellyourcar.auction.query;
 
+import com.dsniatecki.sellyourcar.auction.AuctionRepository;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.auction.tool.AuctionTestGenerator;
 import org.junit.jupiter.api.BeforeAll;

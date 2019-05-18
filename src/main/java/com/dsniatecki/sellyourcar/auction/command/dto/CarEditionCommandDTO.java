@@ -1,4 +1,4 @@
-package com.dsniatecki.sellyourcar.auction.dto.command;
+package com.dsniatecki.sellyourcar.auction.command.dto;
 
 import com.dsniatecki.sellyourcar.auction.dto.CarDetailsDTO;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class CarEditionCommandDTO {
+public final class CarEditionCommandDTO {
 
     private final Integer productionYear;
     private final Integer mileage;

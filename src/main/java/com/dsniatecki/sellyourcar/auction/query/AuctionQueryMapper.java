@@ -1,13 +1,13 @@
-package com.dsniatecki.sellyourcar.auction;
+package com.dsniatecki.sellyourcar.auction.query;
 
 import com.dsniatecki.sellyourcar.auction.dto.CarDTO;
 import com.dsniatecki.sellyourcar.auction.dto.CarDetailsDTO;
 import com.dsniatecki.sellyourcar.auction.dto.LocationDTO;
 import com.dsniatecki.sellyourcar.auction.dto.OwnerDTO;
-import com.dsniatecki.sellyourcar.auction.dto.query.AuctionListItemQueryDTO;
-import com.dsniatecki.sellyourcar.auction.dto.query.AuctionCompleteQueryDTO;
-import com.dsniatecki.sellyourcar.auction.dto.query.CarBasicQueryDTO;
 import com.dsniatecki.sellyourcar.auction.model.*;
+import com.dsniatecki.sellyourcar.auction.query.dto.AuctionCompleteQueryDTO;
+import com.dsniatecki.sellyourcar.auction.query.dto.AuctionListItemQueryDTO;
+import com.dsniatecki.sellyourcar.auction.query.dto.CarBasicQueryDTO;
 
 class AuctionQueryMapper {
 

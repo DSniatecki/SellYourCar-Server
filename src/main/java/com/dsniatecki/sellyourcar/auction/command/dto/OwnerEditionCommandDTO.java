@@ -1,11 +1,11 @@
-package com.dsniatecki.sellyourcar.auction.dto.command;
+package com.dsniatecki.sellyourcar.auction.command.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class OwnerEditionCommandDTO {
+public final class OwnerEditionCommandDTO {
 
     private final String telephoneNumber;
     private final String email;

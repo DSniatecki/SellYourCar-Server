@@ -1,7 +1,8 @@
-package com.dsniatecki.sellyourcar.auction;
+package com.dsniatecki.sellyourcar.auction.command;
 
-import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreationCommandDTO;
-import com.dsniatecki.sellyourcar.auction.dto.command.AuctionEditionCommandDTO;
+import com.dsniatecki.sellyourcar.auction.AuctionRepository;
+import com.dsniatecki.sellyourcar.auction.command.dto.AuctionCreationCommandDTO;
+import com.dsniatecki.sellyourcar.auction.command.dto.AuctionEditionCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;

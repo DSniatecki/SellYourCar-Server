@@ -1,4 +1,4 @@
-package com.dsniatecki.sellyourcar.auction.dto.query;
+package com.dsniatecki.sellyourcar.auction.query.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

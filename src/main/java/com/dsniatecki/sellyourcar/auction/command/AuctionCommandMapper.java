@@ -1,13 +1,13 @@
-package com.dsniatecki.sellyourcar.auction;
+package com.dsniatecki.sellyourcar.auction.command;
 
+import com.dsniatecki.sellyourcar.auction.command.dto.AuctionCreationCommandDTO;
+import com.dsniatecki.sellyourcar.auction.command.dto.AuctionEditionCommandDTO;
+import com.dsniatecki.sellyourcar.auction.command.dto.CarEditionCommandDTO;
+import com.dsniatecki.sellyourcar.auction.command.dto.OwnerEditionCommandDTO;
 import com.dsniatecki.sellyourcar.auction.dto.CarDTO;
 import com.dsniatecki.sellyourcar.auction.dto.CarDetailsDTO;
 import com.dsniatecki.sellyourcar.auction.dto.LocationDTO;
 import com.dsniatecki.sellyourcar.auction.dto.OwnerDTO;
-import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreationCommandDTO;
-import com.dsniatecki.sellyourcar.auction.dto.command.AuctionEditionCommandDTO;
-import com.dsniatecki.sellyourcar.auction.dto.command.CarEditionCommandDTO;
-import com.dsniatecki.sellyourcar.auction.dto.command.OwnerEditionCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.*;
 
 class AuctionCommandMapper {

@@ -1,6 +1,7 @@
-package com.dsniatecki.sellyourcar.auction;
+package com.dsniatecki.sellyourcar.auction.command;
 
-import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreationCommandDTO;
+import com.dsniatecki.sellyourcar.auction.AuctionRepository;
+import com.dsniatecki.sellyourcar.auction.command.dto.AuctionCreationCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.auction.tool.AuctionTestGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,8 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(

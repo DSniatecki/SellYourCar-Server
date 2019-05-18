@@ -1,8 +1,9 @@
-package com.dsniatecki.sellyourcar.auction;
+package com.dsniatecki.sellyourcar.auction.query;
 
-import com.dsniatecki.sellyourcar.auction.dto.query.AuctionCompleteQueryDTO;
-import com.dsniatecki.sellyourcar.auction.dto.query.AuctionListItemQueryDTO;
+import com.dsniatecki.sellyourcar.auction.AuctionRepository;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
+import com.dsniatecki.sellyourcar.auction.query.dto.AuctionCompleteQueryDTO;
+import com.dsniatecki.sellyourcar.auction.query.dto.AuctionListItemQueryDTO;
 import com.dsniatecki.sellyourcar.auction.tool.AuctionTestGenerator;
 import com.dsniatecki.sellyourcar.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.Assertions;

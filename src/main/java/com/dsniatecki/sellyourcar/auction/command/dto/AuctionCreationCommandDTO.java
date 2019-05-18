@@ -1,4 +1,4 @@
-package com.dsniatecki.sellyourcar.auction.dto.command;
+package com.dsniatecki.sellyourcar.auction.command.dto;
 
 import com.dsniatecki.sellyourcar.auction.dto.CarDTO;
 import com.dsniatecki.sellyourcar.auction.dto.LocationDTO;

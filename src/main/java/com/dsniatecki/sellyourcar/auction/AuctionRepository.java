@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface AuctionRepository extends JpaRepository<Auction, Long> {
+public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
     boolean existsById(Long id);
     boolean existsByIdAndIsPremiumIs(Long id, boolean isPremium);

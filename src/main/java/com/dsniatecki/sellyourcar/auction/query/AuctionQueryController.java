@@ -1,8 +1,8 @@
-package com.dsniatecki.sellyourcar.auction;
+package com.dsniatecki.sellyourcar.auction.query;
 
 
-import com.dsniatecki.sellyourcar.auction.dto.query.AuctionListItemQueryDTO;
-import com.dsniatecki.sellyourcar.auction.dto.query.AuctionCompleteQueryDTO;
+import com.dsniatecki.sellyourcar.auction.query.dto.AuctionCompleteQueryDTO;
+import com.dsniatecki.sellyourcar.auction.query.dto.AuctionListItemQueryDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

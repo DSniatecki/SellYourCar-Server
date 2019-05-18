@@ -1,10 +1,10 @@
 package com.dsniatecki.sellyourcar.auction.tool;
 
+import com.dsniatecki.sellyourcar.auction.command.dto.AuctionCreationCommandDTO;
 import com.dsniatecki.sellyourcar.auction.dto.CarDTO;
 import com.dsniatecki.sellyourcar.auction.dto.CarDetailsDTO;
 import com.dsniatecki.sellyourcar.auction.dto.LocationDTO;
 import com.dsniatecki.sellyourcar.auction.dto.OwnerDTO;
-import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreationCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.*;
 
 import java.util.Arrays;
