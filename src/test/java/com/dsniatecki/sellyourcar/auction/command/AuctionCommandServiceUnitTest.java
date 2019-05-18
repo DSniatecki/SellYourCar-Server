@@ -1,6 +1,5 @@
 package com.dsniatecki.sellyourcar.auction.command;
 
-import com.dsniatecki.sellyourcar.auction.AuctionRepository;
 import com.dsniatecki.sellyourcar.auction.command.dto.AuctionCreationCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.auction.tool.AuctionTestGenerator;
@@ -29,7 +28,7 @@ class AuctionCommandServiceUnitTest {
     private AuctionCommandService auctionCommandService;
 
     @MockBean
-    private AuctionRepository auctionRepository;
+    private AuctionCommandRepository auctionCommandRepository;
 
     @Test
     @DisplayName("addNew() - SUCCESS")
@@ -39,7 +38,7 @@ class AuctionCommandServiceUnitTest {
 
         auctionCommandService.addNew(auctionDTO);
 
-        verify(auctionRepository).save(argument.capture());
+        verify(auctionCommandRepository).save(argument.capture());
 
         assertAll(
                 ()->Assertions.assertSame(argument.getValue().getId(), null),
@@ -50,7 +49,8 @@ class AuctionCommandServiceUnitTest {
                 ()->Assertions.assertSame(argument.getValue().getCar().getId(), null),
                 ()->Assertions.assertEquals(argument.getValue().getCar().getBrand(), auctionDTO.getCar().getBrand()),
                 ()->Assertions.assertEquals(argument.getValue().getCar().getModel(), auctionDTO.getCar().getModel()),
-                ()->Assertions.assertEquals(argument.getValue().getCar().getMileage(), auctionDTO.getCar().getMileage()),
+                ()->Assertions.assertEquals(argument.getValue().getCar().getMileage(),
+                        auctionDTO.getCar().getMileage()),
                 ()->Assertions.assertSame(argument.getValue().getOwner().getId(), null),
                 ()->Assertions.assertSame(argument.getValue().getOwner().getUsername(),
                         auctionDTO.getOwner().getUsername()),

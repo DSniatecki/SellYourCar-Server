@@ -33,14 +33,29 @@ class AuctionQueryController {
     @GetMapping("/")
     public Page<AuctionListItemQueryDTO> getPage(@RequestParam("page") Optional<Integer> page,
                                                  @RequestParam("size") Optional<Integer> size,
-                                                 @RequestParam("order") Optional<String> order,
-                                                 @RequestParam("direction") Optional<String> direction){
+                                                 @RequestParam("direction") Optional<String> direction,
+                                                 @RequestParam("order") Optional<String[]> order){
         return auctionQueryService.getPage(
                     PageRequest.of(page.orElse(1) -1,
                         size.orElse(DEFAULT_PAGE_SIZE),
                         Sort.Direction.fromString(direction.orElse("ASC")),
-                        order.orElse("creationDate"))
+                        order.orElse(new String[]{"creationDate", "isPremium"}))
                 );
+    }
+
+    @GetMapping("/search/{word}")
+    public Page<AuctionListItemQueryDTO> getPageBy(@PathVariable String word,
+                                                     @RequestParam("page") Optional<Integer> page,
+                                                     @RequestParam("size") Optional<Integer> size,
+                                                     @RequestParam("order") Optional<String> order,
+                                                     @RequestParam("direction") Optional<String> direction){
+        return auctionQueryService.getPageBy(
+                word,
+                PageRequest.of(page.orElse(1) -1,
+                        size.orElse(DEFAULT_PAGE_SIZE),
+                        Sort.Direction.fromString(direction.orElse("ASC")),
+                        order.orElse("creationDate"))
+        );
     }
 
     @GetMapping("/{id}")

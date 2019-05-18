@@ -1,6 +1,5 @@
 package com.dsniatecki.sellyourcar.auction.command;
 
-import com.dsniatecki.sellyourcar.auction.AuctionRepository;
 import com.dsniatecki.sellyourcar.auction.command.dto.AuctionCreationCommandDTO;
 import com.dsniatecki.sellyourcar.auction.command.dto.AuctionEditionCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
@@ -11,34 +10,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 class AuctionCommandService {
 
-    private AuctionRepository auctionRepository;
+    private AuctionCommandRepository auctionCommandRepository;
 
-    AuctionCommandService(AuctionRepository auctionRepository){
-        this.auctionRepository = auctionRepository;
+    AuctionCommandService(AuctionCommandRepository auctionCommandRepository){
+        this.auctionCommandRepository = auctionCommandRepository;
     }
 
     void addNew(AuctionCreationCommandDTO auctionDTO) {
         Auction auction = AuctionCommandMapper.mapToAuction(auctionDTO);
         auction.setCreationState();
-        auctionRepository.save(auction);
+        auctionCommandRepository.save(auction);
     }
 
     @Transactional
     public void update(String id, AuctionEditionCommandDTO auctionDTO) {
-        Auction auction = auctionRepository.findById(Long.valueOf(id))
+        Auction auction = auctionCommandRepository.findById(Long.valueOf(id))
                 .orElseThrow( () -> new ResourceNotFoundException("Auction[id:"+id+"] was not found.") );
         AuctionCommandMapper.changeAuctionPartly(auction, auctionDTO);
     }
 
     @Transactional
     public void deleteAuction(String id) {
-        auctionRepository.deleteById(Long.valueOf(id));
+        auctionCommandRepository.deleteById(Long.valueOf(id));
     }
 
     @Transactional
     public void activatePremium(String id) {
-        if (auctionRepository.existsByIdAndIsPremiumIs(Long.valueOf(id), false))
-            auctionRepository.activatePremium(Long.valueOf(id));
+        if (auctionCommandRepository.existsByIdAndIsPremium(Long.valueOf(id), false))
+            auctionCommandRepository.activatePremium(Long.valueOf(id));
         else
             throw new ResourceNotFoundException("Auction[id:"+id+"] was not found, or it is already a premium.");
     }

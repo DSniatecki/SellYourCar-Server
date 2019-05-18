@@ -1,6 +1,5 @@
 package com.dsniatecki.sellyourcar.auction.query;
 
-import com.dsniatecki.sellyourcar.auction.AuctionRepository;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.auction.tool.AuctionTestGenerator;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,14 +28,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AuctionQueryControllerIntegrationTest{
 
     @Autowired
-    private AuctionRepository auctionRepository;
+    private AuctionQueryRepository auctionQueryRepository;
 
     @Autowired
     private MockMvc mockMvc;
 
     @BeforeAll
     void prepareDatabaseForTests(){
-        auctionRepository.save(AuctionTestGenerator.generateAuction());
+        auctionQueryRepository.save(AuctionTestGenerator.generateAuction());
     }
 
     @Test
@@ -76,6 +75,69 @@ class AuctionQueryControllerIntegrationTest{
                 .andExpect(jsonPath("$.content.[0].car.model").value(auction.getCar().getModel()))
                 .andExpect(jsonPath("$.content.[0].car.productionYear").value(auction.getCar().getProductionYear()));
     }
+
+    @Test
+    @DisplayName("getPageBy- by Auction title - SUCCESS")
+    void shouldReturnAuctionPageByTitle() throws Exception {
+        Auction auction = AuctionTestGenerator.generateAuction();
+
+        mockMvc.perform(get("/api/auctions/search/{word}", auction.getTitle()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.empty").value(false))
+                .andExpect(jsonPath("$.numberOfElements").value(1))
+                .andExpect(jsonPath("$.content", hasSize(1)))
+                .andExpect(jsonPath("$.content.[0].id").value(auction.getId()))
+                .andExpect(jsonPath("$.content.[0].title").value(auction.getTitle()))
+                .andExpect(jsonPath("$.content.[0].price").value(auction.getPrice()))
+                .andExpect(jsonPath("$.content.[0].isPremium").value(auction.getIsPremium()))
+                .andExpect(jsonPath("$.content.[0].car.brand").value(auction.getCar().getBrand()))
+                .andExpect(jsonPath("$.content.[0].car.model").value(auction.getCar().getModel()))
+                .andExpect(jsonPath("$.content.[0].car.productionYear").value(auction.getCar().getProductionYear()));
+    }
+
+    @Test
+    @DisplayName("getPageBy() - by Car Brand - SUCCESS")
+    void shouldReturnAuctionPageByCarBrand() throws Exception {
+        Auction auction = AuctionTestGenerator.generateAuction();
+
+        mockMvc.perform(get("/api/auctions/search/{word}", auction.getCar().getBrand()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.empty").value(false))
+                .andExpect(jsonPath("$.numberOfElements").value(1))
+                .andExpect(jsonPath("$.content", hasSize(1)))
+                .andExpect(jsonPath("$.content.[0].id").value(auction.getId()));
+    }
+
+
+    @Test
+    @DisplayName("getPageBy() - by Car Model - SUCCESS")
+    void shouldReturnAuctionPageByCarModel() throws Exception {
+        Auction auction = AuctionTestGenerator.generateAuction();
+
+        mockMvc.perform(get("/api/auctions/search/{word}", auction.getCar().getModel()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.empty").value(false))
+                .andExpect(jsonPath("$.numberOfElements").value(1))
+                .andExpect(jsonPath("$.content", hasSize(1)))
+                .andExpect(jsonPath("$.content.[0].id").value(auction.getId()));
+    }
+
+    @Test
+    @DisplayName("getPageBy() - empty  - SUCCESS")
+    void shouldReturnEmptyAuctionPageBy() throws Exception {
+        Auction auction = AuctionTestGenerator.generateAuction();
+
+        mockMvc.perform(get("/api/auctions/search/{word}", "Funny Car Title"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.empty").value(true))
+                .andExpect(jsonPath("$.numberOfElements").value(0))
+                .andExpect(jsonPath("$.content", hasSize(0)));
+    }
+
 
     @Test
     @DisplayName("getById() - SUCCESS")

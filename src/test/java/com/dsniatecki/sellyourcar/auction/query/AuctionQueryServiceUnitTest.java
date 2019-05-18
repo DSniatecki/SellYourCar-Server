@@ -1,6 +1,5 @@
 package com.dsniatecki.sellyourcar.auction.query;
 
-import com.dsniatecki.sellyourcar.auction.AuctionRepository;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.auction.query.dto.AuctionCompleteQueryDTO;
 import com.dsniatecki.sellyourcar.auction.query.dto.AuctionListItemQueryDTO;
@@ -23,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doReturn;
 
 @ActiveProfiles("test")
@@ -36,13 +35,13 @@ class AuctionQueryServiceUnitTest {
     private AuctionQueryService auctionQueryService;
 
     @MockBean
-    private AuctionRepository auctionRepository;
+    private AuctionQueryRepository auctionQueryRepository;
 
     @Test
     @DisplayName("getAll() - SUCCESS")
     void shouldGetAllAuctions() {
         List<Auction> auctionList = AuctionTestGenerator.generateAuctionList();
-        doReturn(auctionList).when(auctionRepository).findAll();
+        doReturn(auctionList).when(auctionQueryRepository).findAll();
 
         List<AuctionListItemQueryDTO> returnedAuctions = auctionQueryService.getAll();
 
@@ -61,7 +60,7 @@ class AuctionQueryServiceUnitTest {
     @DisplayName("getPage() - SUCCESS")
     void shouldGetPage() {
         Page<Auction> auctionPage = new PageImpl<>(AuctionTestGenerator.generateAuctionList());
-        doReturn(auctionPage).when(auctionRepository).findAll(Pageable.unpaged());
+        doReturn(auctionPage).when(auctionQueryRepository).findAll(Pageable.unpaged());
 
         Page<AuctionListItemQueryDTO> returnedAuctionPage = auctionQueryService.getPage(Pageable.unpaged());
 
@@ -85,10 +84,39 @@ class AuctionQueryServiceUnitTest {
     }
 
     @Test
+    @DisplayName("getPageBy() - SUCCESS")
+    void shouldGetPageBy() {
+        Page<Auction> auctionPage = new PageImpl<>(AuctionTestGenerator.generateAuctionList());
+        doReturn(auctionPage).when(auctionQueryRepository).findAllByWord("word", Pageable.unpaged());
+
+        Page<AuctionListItemQueryDTO> returnedAuctionPage =
+                auctionQueryService.getPageBy("word", Pageable.unpaged());
+
+        assertAll(
+                ()-> assertEquals(returnedAuctionPage.getTotalElements(), 2),
+                ()-> assertEquals(returnedAuctionPage.getContent().get(0).getId(),
+                        auctionPage.getContent().get(0).getId()),
+                ()-> assertEquals(returnedAuctionPage.getContent().get(1).getId(),
+                        auctionPage.getContent().get(1).getId()),
+                ()-> assertEquals(returnedAuctionPage.getContent().get(0).getIsPremium(),
+                        auctionPage.getContent().get(0).getIsPremium()),
+                ()-> assertEquals(returnedAuctionPage.getContent().get(0).getPrice(),
+                        auctionPage.getContent().get(0).getPrice()),
+                ()-> assertEquals(returnedAuctionPage.getContent().get(1).getPrice(),
+                        auctionPage.getContent().get(1).getPrice()),
+                ()-> assertEquals(returnedAuctionPage.getContent().get(0).getCar().getBrand(),
+                        auctionPage.getContent().get(0).getCar().getBrand()),
+                ()-> assertEquals(returnedAuctionPage.getContent().get(1).getCar().getModel(),
+                        auctionPage.getContent().get(1).getCar().getModel())
+        );
+    }
+
+
+    @Test
     @DisplayName("getById() - SUCCESS")
     void shouldGetById() {
         Auction auction = AuctionTestGenerator.generateAuction();
-        doReturn(Optional.ofNullable(auction)).when(auctionRepository).findById(anyLong());
+        doReturn(Optional.ofNullable(auction)).when(auctionQueryRepository).findById(anyLong());
 
         AuctionCompleteQueryDTO returnedAuctionDTO = auctionQueryService.getById("1");
 
@@ -109,7 +137,7 @@ class AuctionQueryServiceUnitTest {
     @Test
     @DisplayName("getById() - FAILED: ResourceNotFoundException")
     void shouldNotGetById(){
-        doReturn(Optional.empty()).when(auctionRepository).findById(anyLong());
+        doReturn(Optional.empty()).when(auctionQueryRepository).findById(anyLong());
 
         ResourceNotFoundException exception = assertThrows(
                 ResourceNotFoundException.class, ()-> auctionQueryService.getById("1")

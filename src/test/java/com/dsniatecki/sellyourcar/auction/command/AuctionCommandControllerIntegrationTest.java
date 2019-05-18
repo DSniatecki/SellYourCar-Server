@@ -1,6 +1,5 @@
 package com.dsniatecki.sellyourcar.auction.command;
 
-import com.dsniatecki.sellyourcar.auction.AuctionRepository;
 import com.dsniatecki.sellyourcar.auction.command.dto.AuctionCreationCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.auction.tool.AuctionTestGenerator;
@@ -30,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AuctionCommandControllerIntegrationTest {
 
     @Autowired
-    private AuctionRepository auctionRepository;
+    private AuctionCommandRepository auctionCommandRepository;
 
     @Autowired
     private MockMvc mockMvc;
@@ -46,7 +45,8 @@ class AuctionCommandControllerIntegrationTest {
                 .content(convertToJson(auctionDTO))
         )
                 .andExpect(status().isCreated());
-        Auction savedAuction = auctionRepository.findById(1L).orElseThrow(()->new Exception("Auction not found"));
+        Auction savedAuction = auctionCommandRepository.findById(1L)
+                                        .orElseThrow(()->new Exception("Auction not found"));
 
         assertAll(
                 ()-> assertSame(savedAuction.getId(), 1L),
@@ -85,7 +85,7 @@ class AuctionCommandControllerIntegrationTest {
         auction.getCar().setModel("Model should not change");
         auction.getOwner().setUsername("Username should not change");
 
-        Auction previousAuction = auctionRepository.save(auction);
+        Auction previousAuction = auctionCommandRepository.save(auction);
 
         AuctionCreationCommandDTO auctionDTO = AuctionTestGenerator.generateAuctionCreateCommandDTO();
 
@@ -95,7 +95,8 @@ class AuctionCommandControllerIntegrationTest {
         )
                 .andExpect(status().isOk());
 
-        Auction updatedAuction = auctionRepository.findById(previousAuction.getId()).orElseThrow(()->new Exception("Auction not found"));
+        Auction updatedAuction = auctionCommandRepository.findById(previousAuction.getId())
+                                                .orElseThrow(()->new Exception("Auction not found"));
 
         assertAll(
                 ()-> assertSame(updatedAuction.getId(), previousAuction.getId()),
@@ -130,12 +131,12 @@ class AuctionCommandControllerIntegrationTest {
     @Transactional
     @DisplayName("delete() - SUCCESS")
     public void shouldDelete() throws Exception {
-        Auction savedAuction = auctionRepository.save(AuctionTestGenerator.generateAuction());
+        Auction savedAuction = auctionCommandRepository.save(AuctionTestGenerator.generateAuction());
 
         mockMvc.perform(delete("/api/auctions/{id}", savedAuction.getId()))
                 .andExpect(status().isOk());
 
-        boolean exists = auctionRepository.existsById(savedAuction.getId());
+        boolean exists = auctionCommandRepository.existsById(savedAuction.getId());
 
         assertSame(exists, false);
     }
