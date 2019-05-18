@@ -24,9 +24,9 @@ manage and browse car auctions. Service support both SQL and NotSQL databases.
 
 ## Database diagram :
   
-    ![](SQL/Database-Diagram-Screenshot.jpg)
+![](SQL/Database-Diagram-Screenshot.jpg)
 
- ## Launching instruction :
+## Launching instruction :
 
   1.  Download 
   2.  Unzip 
