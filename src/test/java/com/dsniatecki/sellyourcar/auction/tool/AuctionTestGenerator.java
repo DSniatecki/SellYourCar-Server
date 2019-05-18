@@ -4,7 +4,7 @@ import com.dsniatecki.sellyourcar.auction.dto.CarDTO;
 import com.dsniatecki.sellyourcar.auction.dto.CarDetailsDTO;
 import com.dsniatecki.sellyourcar.auction.dto.LocationDTO;
 import com.dsniatecki.sellyourcar.auction.dto.OwnerDTO;
-import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreateCommandDTO;
+import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreationCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.*;
 
 import java.util.Arrays;
@@ -75,8 +75,8 @@ public class AuctionTestGenerator {
         );
     }
 
-    public static AuctionCreateCommandDTO generateAuctionCreateCommandDTO(){
-        return new AuctionCreateCommandDTO(
+    public static AuctionCreationCommandDTO generateAuctionCreateCommandDTO(){
+        return new AuctionCreationCommandDTO(
                 "Test Title",
                 100_1000,
                 new CarDTO(

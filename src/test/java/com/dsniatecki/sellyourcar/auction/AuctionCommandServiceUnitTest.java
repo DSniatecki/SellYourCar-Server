@@ -1,6 +1,6 @@
 package com.dsniatecki.sellyourcar.auction;
 
-import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreateCommandDTO;
+import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreationCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.Auction;
 import com.dsniatecki.sellyourcar.auction.tool.AuctionTestGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -33,7 +33,7 @@ class AuctionCommandServiceUnitTest {
     @Test
     @DisplayName("addNew() - SUCCESS")
     void shouldAddNew() {
-        AuctionCreateCommandDTO auctionDTO= AuctionTestGenerator.generateAuctionCreateCommandDTO();
+        AuctionCreationCommandDTO auctionDTO= AuctionTestGenerator.generateAuctionCreateCommandDTO();
         ArgumentCaptor<Auction> argument = ArgumentCaptor.forClass(Auction.class);
 
         auctionCommandService.addNew(auctionDTO);

@@ -31,9 +31,6 @@ class AuctionQueryControllerIntegrationTest{
     private AuctionRepository auctionRepository;
 
     @Autowired
-    private AuctionQueryService auctionQueryService;
-
-    @Autowired
     private MockMvc mockMvc;
 
     @BeforeAll

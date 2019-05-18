@@ -4,14 +4,49 @@ import com.dsniatecki.sellyourcar.auction.dto.CarDTO;
 import com.dsniatecki.sellyourcar.auction.dto.CarDetailsDTO;
 import com.dsniatecki.sellyourcar.auction.dto.LocationDTO;
 import com.dsniatecki.sellyourcar.auction.dto.OwnerDTO;
-import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreateCommandDTO;
+import com.dsniatecki.sellyourcar.auction.dto.command.AuctionCreationCommandDTO;
+import com.dsniatecki.sellyourcar.auction.dto.command.AuctionEditionCommandDTO;
+import com.dsniatecki.sellyourcar.auction.dto.command.CarEditionCommandDTO;
+import com.dsniatecki.sellyourcar.auction.dto.command.OwnerEditionCommandDTO;
 import com.dsniatecki.sellyourcar.auction.model.*;
 
 class AuctionCommandMapper {
 
     private AuctionCommandMapper(){}
 
-    static Auction mapToAuction(AuctionCreateCommandDTO auctionDTO){
+    static void changeAuctionPartly(Auction auction, AuctionEditionCommandDTO auctionDTO){
+        auction.setTitle(auctionDTO.getTitle());
+        auction.setPrice(auctionDTO.getPrice());
+        changeCarPartly(auction.getCar(), auctionDTO.getCar());
+        changeOwnerPartly(auction.getOwner(), auctionDTO.getOwner());
+        changeLocationPartly(auction.getLocation(), auctionDTO.getLocation());
+    }
+
+    private static void changeCarPartly(Car car, CarEditionCommandDTO carDTO){
+        car.setProductionYear(carDTO.getProductionYear());
+        car.setMileage(carDTO.getMileage());
+        car.setEnginePower(carDTO.getEnginePower());
+        car.setFuelType(carDTO.getFuelType());
+        changeCarDetailsPartly(car.getDetails(), carDTO.getCarDetails());
+    }
+
+    private static void changeCarDetailsPartly(CarDetails carDetails, CarDetailsDTO carDetailsDTO){
+        carDetails.setFeatures(carDetailsDTO.getFeatures());
+        carDetails.setDescription(carDetailsDTO.getDescription());
+    }
+
+    private static void changeOwnerPartly(Owner owner, OwnerEditionCommandDTO ownerDTO){
+        owner.setTelephoneNumber(ownerDTO.getTelephoneNumber());
+        owner.setEmail(ownerDTO.getEmail());
+    }
+
+    private static void changeLocationPartly(Location location, LocationDTO locationDTO){
+        location.setCountry(locationDTO.getCountry());
+        location.setProvince(locationDTO.getProvince());
+        location.setCity(locationDTO.getCity());
+    }
+
+    static Auction mapToAuction(AuctionCreationCommandDTO auctionDTO){
         return Auction.builder()
                 .title(auctionDTO.getTitle())
                 .price(auctionDTO.getPrice())

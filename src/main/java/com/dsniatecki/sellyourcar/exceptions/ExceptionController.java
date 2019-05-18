@@ -1,7 +1,9 @@
 package com.dsniatecki.sellyourcar.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -15,17 +17,21 @@ import java.time.LocalDateTime;
 @RestController
 class ExceptionController {
 
-    @ExceptionHandler({ResourceNotFoundException.class})
+    @ExceptionHandler({ResourceNotFoundException.class, EmptyResultDataAccessException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionResponse handleAuctionNotFoundException(
-            ResourceNotFoundException exception, WebRequest webRequest){
+    public ExceptionResponse handleNotFoundException(Exception exception, WebRequest webRequest){
         return new ExceptionResponse(LocalDateTime.now(),  exception.getMessage(), webRequest.getDescription(false));
     }
 
     @ExceptionHandler({NumberFormatException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionResponse handleMultipleBadRequestExceptions(
-            Exception exception, WebRequest webRequest){
+    public ExceptionResponse handleMultipleBadRequestExceptions(Exception exception, WebRequest webRequest){
+        return new ExceptionResponse(LocalDateTime.now(), exception.getMessage(), webRequest.getDescription(false));
+    }
+
+    @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public ExceptionResponse handleMethodNotSupportedException(Exception exception, WebRequest webRequest){
         return new ExceptionResponse(LocalDateTime.now(), exception.getMessage(), webRequest.getDescription(false));
     }
 
