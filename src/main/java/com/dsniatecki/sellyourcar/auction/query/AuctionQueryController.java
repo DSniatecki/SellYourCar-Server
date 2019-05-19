@@ -33,13 +33,10 @@ class AuctionQueryController {
     @GetMapping("/")
     public Page<AuctionListItemQueryDTO> getPage(@RequestParam("page") Optional<Integer> page,
                                                  @RequestParam("size") Optional<Integer> size,
-                                                 @RequestParam("direction") Optional<String> direction,
-                                                 @RequestParam("order") Optional<String[]> order){
+                                                 @RequestParam("order") Optional<String> order){
         return auctionQueryService.getPage(
-                    PageRequest.of(page.orElse(1) -1,
-                        size.orElse(DEFAULT_PAGE_SIZE),
-                        Sort.Direction.fromString(direction.orElse("ASC")),
-                        order.orElse(new String[]{"creationDate", "isPremium"}))
+                    PageRequest.of(page.orElse(1) -1, size.orElse(DEFAULT_PAGE_SIZE),
+                            Sort.by(Sort.Order.desc("isPremium"), Sort.Order.asc(order.orElse("creationDate"))))
                 );
     }
 
@@ -47,14 +44,10 @@ class AuctionQueryController {
     public Page<AuctionListItemQueryDTO> getPageBy(@PathVariable String word,
                                                      @RequestParam("page") Optional<Integer> page,
                                                      @RequestParam("size") Optional<Integer> size,
-                                                     @RequestParam("order") Optional<String> order,
-                                                     @RequestParam("direction") Optional<String> direction){
-        return auctionQueryService.getPageBy(
-                word,
-                PageRequest.of(page.orElse(1) -1,
-                        size.orElse(DEFAULT_PAGE_SIZE),
-                        Sort.Direction.fromString(direction.orElse("ASC")),
-                        order.orElse("creationDate"))
+                                                     @RequestParam("direction") Optional<String> order){
+        return auctionQueryService.getPageBy(word,
+                PageRequest.of(page.orElse(1) -1, size.orElse(DEFAULT_PAGE_SIZE),
+                            Sort.by(Sort.Order.desc("isPremium"), Sort.Order.asc(order.orElse("creationDate"))))
         );
     }
 

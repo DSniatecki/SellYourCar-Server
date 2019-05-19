@@ -13,7 +13,6 @@ public final class CarDetailsDTO {
     @JsonCreator(mode=JsonCreator.Mode.PROPERTIES)
     public CarDetailsDTO(@JsonProperty("features") String features,
                          @JsonProperty("description") String description) {
-
         this.features = features;
         this.description = description;
     }
