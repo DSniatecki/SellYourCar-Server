@@ -1,6 +1,15 @@
 # SellYourCar
-Web service based on REST architecture and CQRS pattern. It allows clients to
-manage and browse car auctions. Service support both SQL and NotSQL databases. 
+Web service based on REST architecture and CQRS pattern. It allows us to :
+
+- create new auction
+- update auction ( some fields are unchangeable )
+- delete auction ( soft delete, remains in the database, but is not shown in the search results )
+- upgrade auction to premium auction ( higher in the search results )
+- retrieve auction ( contains all available fields to the user )
+- retrieve all auctions ( contains only basic fields )
+- retrieve page of auctions ( contains only basic fields )
+- retrieve page of auctions by word ( Search for the auction page, which 
+  contatins in the title/car brand/car model given the word )
 
 ## technology used :
  ### - Backend :
