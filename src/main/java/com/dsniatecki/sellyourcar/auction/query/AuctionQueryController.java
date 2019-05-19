@@ -42,9 +42,9 @@ class AuctionQueryController {
 
     @GetMapping("/search/{word}")
     public Page<AuctionListItemQueryDTO> getPageBy(@PathVariable String word,
-                                                     @RequestParam("page") Optional<Integer> page,
-                                                     @RequestParam("size") Optional<Integer> size,
-                                                     @RequestParam("direction") Optional<String> order){
+                                                   @RequestParam("page") Optional<Integer> page,
+                                                   @RequestParam("size") Optional<Integer> size,
+                                                   @RequestParam("direction") Optional<String> order){
         return auctionQueryService.getPageBy(word,
                 PageRequest.of(page.orElse(1) -1, size.orElse(DEFAULT_PAGE_SIZE),
                             Sort.by(Sort.Order.desc("isPremium"), Sort.Order.asc(order.orElse("creationDate"))))
