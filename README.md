@@ -3,13 +3,13 @@ Web service based on REST architecture and CQRS pattern. It allows us to :
 
 - create new auction
 - update auction ( some fields are unchangeable )
-- delete auction ( soft delete, remains in the database, but is not shown in the search results )
+- delete auction ( soft delete ( remains in the database but is not shown in the search results ) )
 - upgrade auction to premium auction ( higher in the search results )
 - retrieve auction ( contains all available fields to the user )
 - retrieve all auctions ( contains only basic fields )
-- retrieve page of auctions ( contains only basic fields )
-- retrieve page of auctions by word ( Search for the auction page, which 
-  contatins in the title/car brand/car model given the word )
+- retrieve a page of auctions ( contains only basic fields )
+- retrieve a page of auctions by word ( Search for the auction page, which 
+  contains in the title/car brand/car model given the word )
 
 ## technology used :
  ### - Backend :
@@ -43,8 +43,8 @@ Web service based on REST architecture and CQRS pattern. It allows us to :
   4.  Create database with this schema 
   5.  Load data into the database from the Data folder 
   6.  If you are using PostgreSQL database in application.properties change active profile to 
-      "postgresql", if you are using MySQL change to "mysql", if you are using H2 change to "h2"
-  7.  In file application-mysql.properties, or application-postgresql.properties, or 
+      "postgres", if you are using MySQL change to "mysql", if you are using H2 change to "h2"
+  7.  In file application-mysql.properties, or application-postgres.properties, or 
       application-h2.properties ( depending on th selected database ) enter correct database url,
       username and password ( for H2, you do not have to do it ). 
   8.  Run Application
