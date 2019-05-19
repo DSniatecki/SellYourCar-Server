@@ -1,4 +1,4 @@
-# SellYourCar
+# SellYourCar #
 Web service based on REST architecture and CQRS pattern. It allows us to :
 
 - create new auction
