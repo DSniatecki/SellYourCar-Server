@@ -5,7 +5,7 @@ USE sell_your_car;
 
 CREATE TABLE cars_details(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    	additional_features VARCHAR(200),
+    additional_features VARCHAR(200),
 	long_description VARCHAR(500)
 );
 
