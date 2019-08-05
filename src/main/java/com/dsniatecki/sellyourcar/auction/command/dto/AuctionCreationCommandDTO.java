@@ -8,26 +8,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 @Getter
 public final class AuctionCreationCommandDTO {
 
-    @Size(min = 10, max = 80, message = "About Me must be between 10 and 80 characters")
+    @NotNull @Size(min = 10, max = 80, message = "About Me must be between 10 and 80 characters")
     private final String title;
 
-    @Positive
-    @DecimalMax(value="1000000")
+    @NotNull @Positive @DecimalMax(value="1000000")
     private final Integer price;
 
-    @Valid
+    @NotNull @Valid
     private final CarDTO car;
 
-    @Valid
+    @NotNull @Valid
     private final OwnerDTO owner;
 
-    @Valid
+    @NotNull @Valid
     private final LocationDTO location;
 
     @JsonCreator(mode= JsonCreator.Mode.PROPERTIES)

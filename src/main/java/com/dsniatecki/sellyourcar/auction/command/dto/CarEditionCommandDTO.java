@@ -6,30 +6,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Getter
 public final class CarEditionCommandDTO {
 
-    @DecimalMin(value="1890")
-    @DecimalMax(value="2020")
+    @NotNull @DecimalMin(value="1890") @DecimalMax(value="2020")
     private final Integer productionYear;
 
-    @Positive
-    @DecimalMax(value="1000000")
+    @NotNull @Positive @DecimalMax(value="1000000")
     private final Integer mileage;
 
-    @Positive
-    @DecimalMax(value="2000" , message = "About Me must be between 1 and 2000")
+    @NotNull @Positive @DecimalMax(value="2000" , message = "About Me must be between 1 and 2000")
     private final Integer enginePower;
 
-    @Size(min = 2, max = 20, message = "About Me must be between 2 and 20 characters")
+    @NotNull @Size(min = 2, max = 20, message = "About Me must be between 2 and 20 characters")
     private final String fuelType;
 
-    @Valid
+    @NotNull @Valid
     private final CarDetailsDTO carDetails;
 
     @JsonCreator(mode=JsonCreator.Mode.PROPERTIES)
