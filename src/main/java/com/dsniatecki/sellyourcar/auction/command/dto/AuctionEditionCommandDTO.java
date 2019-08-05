@@ -5,13 +5,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
 @Getter
 public final class AuctionEditionCommandDTO {
 
+    @Size(min = 10, max = 80, message = "About Me must be between 10 and 80 characters")
     private final String title;
+
+    @Positive
+    @DecimalMax(value="1000000")
     private final Integer price;
+
+    @Valid
     private final CarEditionCommandDTO car;
+
+    @Valid
     private final OwnerEditionCommandDTO owner;
+
+    @Valid
     private final LocationDTO location;
 
     @JsonCreator(mode= JsonCreator.Mode.PROPERTIES)

@@ -5,6 +5,8 @@ import com.dsniatecki.sellyourcar.auction.command.dto.AuctionEditionCommandDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/auctions")
 class AuctionCommandController {
@@ -17,13 +19,13 @@ class AuctionCommandController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNew(@RequestBody AuctionCreationCommandDTO auctionDTO){
+    public void createNew(@Valid @RequestBody AuctionCreationCommandDTO auctionDTO){
         auctionCommandService.addNew(auctionDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable String id, @RequestBody AuctionEditionCommandDTO auctionDTO){
+    public void update(@Valid @RequestBody AuctionEditionCommandDTO auctionDTO, @PathVariable String id){
         auctionCommandService.update(id, auctionDTO);
     }
 

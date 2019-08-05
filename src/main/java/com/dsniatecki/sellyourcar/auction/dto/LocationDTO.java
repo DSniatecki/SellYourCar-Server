@@ -4,11 +4,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
+import javax.validation.constraints.Size;
+
 @Getter
 public final class LocationDTO {
 
+    @Size(min = 2, max = 80, message = "About Me must be between 2 and 80 characters")
     private final String country;
+
+    @Size(min = 2, max = 80, message = "About Me must be between 2 and 80 characters")
     private final String province;
+
+    @Size(min = 2, max = 80, message = "About Me must be between 2 and 80 characters")
     private final String city;
 
     @JsonCreator(mode=JsonCreator.Mode.PROPERTIES)

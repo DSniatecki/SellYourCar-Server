@@ -17,8 +17,8 @@ public class AuctionTestGenerator {
     public static Auction generateAuction(){
         return Auction.builder()
                 .id(1L)
-                .title("Test Auction")
-                .price(10_000)
+                .title("Test Auction Title funny")
+                .price(80_000)
                 .car(Car.builder()
                         .id(2L)
                         .brand("Test Brand")
@@ -77,8 +77,8 @@ public class AuctionTestGenerator {
 
     public static AuctionCreationCommandDTO generateAuctionCreateCommandDTO(){
         return new AuctionCreationCommandDTO(
-                "Test Title",
-                100_1000,
+                "Test Title Auctions",
+                100_000,
                 new CarDTO(
                         "Test Brand",
                         "Test Model",
@@ -86,9 +86,10 @@ public class AuctionTestGenerator {
                         100_000,
                         100,
                         "Test fuel",
-                        new CarDetailsDTO("Test Features", "Test Description")
+                        new CarDetailsDTO("Test Features Test Features",
+                                "Test Description Test Description")
                         ),
-                new OwnerDTO("Test Username", "Test Telephone", "Test Email"),
+                new OwnerDTO("Test Username", "674456465", "Test@email.com"),
                 new LocationDTO("Test Country", "Test Province", "Test City")
         );
     }
